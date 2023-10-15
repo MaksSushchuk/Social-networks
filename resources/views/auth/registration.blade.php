@@ -3,9 +3,9 @@
 
 <div id="login">
 
-    <h1><strong>Welcome.</strong> Please register.</h1>
+    <h2><strong>Welcome.</strong> Please register.</h2>
 
-    <form action="{{route('register.store')}}" method="POST">
+    <form action="{{route('register.store')}}" method="POST" enctype="multipart/form-data">
 
       <fieldset>
             @csrf
@@ -15,6 +15,11 @@
             @enderror
             <input type="text" name="email" value="{{old('email')}}" placeholder="E-mail" />
             @error('email')
+                <span class="text-danger small">{{ $message }}</span>
+            @enderror
+            <p>Avatar</p>
+            <input type="file" name="file" />
+            @error('file')
                 <span class="text-danger small">{{ $message }}</span>
             @enderror
             <input type="password" name="password"  placeholder="Password" />
@@ -30,10 +35,9 @@
       </fieldset>
 
     </form>
-          <button class="btn"><a href="{{route('login.index')}}">Login</a></button>
+    <p>You already have an account ?</p>
+    <button class="btn"><a href="{{route('login.index')}}">Login</a></button>
 
-
-    <p><span class="btn-round">or</span></p>
 
     <p>
 

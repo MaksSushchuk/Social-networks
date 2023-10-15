@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\File;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
@@ -45,7 +46,16 @@ class PostController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        return view('post.show',['id' => $post->id]);
+        if ($request->hasFile('file')) {
+            $path = $request->file('file')->store('post','public');
+            File::create([
+                'user_id' => Auth::id(),
+                'filename' => $request->file('file')->getClientOriginalName(),
+                'path' => $path,
+            ]);
+        }
+
+        return redirect()->route('user.home');
     }
 
     /**
