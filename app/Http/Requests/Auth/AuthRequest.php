@@ -28,7 +28,7 @@ class AuthRequest extends FormRequest
     {
         return [
             'username' => ['required','string','max:255'],
-            'avatar' => ['mimes:png,jpg,jpeg'],
+            'avatar' => ['required','mimes:png,jpg,jpeg'],
             'email' => ['required','string','email','max:255','unique:users'],
             'password' => ['required','string','confirmed','min:8'],
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Action\RegisterAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\AuthRequest;
 use App\Models\User;
@@ -18,29 +19,12 @@ class RegisterController extends Controller
         return view('auth.registration');
     }
 
-    public function store(AuthRequest $request){
+    public function store(AuthRequest $request, RegisterAction $action){
+        
 
         $request->validated();
 
-
-        $user = User::create([
-            'name' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'avatar' => $request->file('file')->getClientOriginalName(),
-            'role_id' => 1,
-        ]);
-
-        if ($request->hasFile('file')) {
-            $path = $request->file('file')->store('avatar','public');
-            File::create([
-                'user_id' => $user->id,
-                'filename' => $request->file('file')->getClientOriginalName(),
-                'path' => $path,
-            ]);
-        }
-
-        Auth::login($user);
+        $action->handle($request);
 
         return redirect('user/home');
     }

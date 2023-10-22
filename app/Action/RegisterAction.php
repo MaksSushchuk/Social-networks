@@ -15,23 +15,19 @@ class RegisterAction{
     public function handle($request){
         
         
-        $avatar = $request->hasFile('file') ? 
-        $request->file('file')->getClientOriginalName() :
-         null;
-        
         $user = User::create([
-            'name' => $request->name,
+            'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'avatar' => $avatar,
+            'avatar' => $request->file('avatar')->getClientOriginalName(),
             'role_id' => 1,
         ]);
 
-        if ($avatar) {
-            $path = $request->file('file')->store('avatar','public');
+        if ($request->hasFile('avatar')) {
+            $path = $request->file('avatar')->store('avatar','public');
             File::create([
                 'user_id' => $user->id,
-                'filename' => $avatar,
+                'filename' => $request->file('avatar')->getClientOriginalName(),
                 'path' => $path,
             ]);
         }
