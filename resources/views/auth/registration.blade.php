@@ -18,8 +18,8 @@
                 <span class="text-danger small">{{ $message }}</span>
             @enderror
             <p>Avatar</p>
-            <input type="file" name="file" />
-            @error('file')
+            <input type="file" name="avatar" />
+            @error('avatar')
                 <span class="text-danger small">{{ $message }}</span>
             @enderror
             <input type="password" name="password"  placeholder="Password" />

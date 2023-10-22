@@ -9,5 +9,14 @@ class UserReaction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['value','user_id','post_id'];
+    protected $fillable = ['type','user_id','post_id'];
+
+    const LIKE = 'like';
+    const DISLIKE = 'dislike';
+
+    
+    public static function existRaiting($user_id,$post_id,$type){
+
+        return self::where(['user_id' => $user_id, 'post_id' => $post_id, 'type' => $type ])->exists() ? true : false;
+    }
 }

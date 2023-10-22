@@ -12,8 +12,8 @@ class UserController extends Controller
 
         $user = Auth::user();
         $posts = $user->posts;
-        $avatar = File::where(['user_id' => $user->id, 'filename' => $user->avatar])->first();
-        return view('user.home',compact('user','posts','avatar'));
+        $avatarPath = File::where(['user_id' => $user->id, 'filename' => $user->avatar])->first()->path ?? 'avatar/default/219983.png';
+        return view('user.home',compact('user','posts','avatarPath'));
     }
 
 

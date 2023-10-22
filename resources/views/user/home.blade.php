@@ -1,61 +1,44 @@
-
-
-
+<?php
+use App\Models\UserReaction;
+?>
 @extends('layouts.main')
 @section('content')
+
+<link rel="stylesheet" href="{{asset('css/home.css')}}">
 
 <div class="info">
 
     <div class="avatar">
-        <img src="{{asset('storage/' . $avatar->path)}}" alt="">
+        <img src="{{asset('storage/' . $avatarPath)}}" alt="">
     </div>
-    <h4 class="name">{{$user->name}}</h4>
+    <h4 class="name">{{$user->username}}</h4>
 
 </div>
-@foreach ($posts as $post)
-    <div class="container">
-        <div class="card" style="width: 32rem;">
-            <img class="card-img-top" src="{{asset('storage/' . $avatar->path)}}" alt="Card image cap">
-            <div class="card-body">
-            <h5 class="card-title">{{$post->title}}</h5>
-            <p class="card-text">{{$post->text}}</p>
+<div class="posts">
+    @foreach ($posts as $post)
+        <div class="container">
+            <div class="card" style="width: 32rem;">
+                <img class="card-img-top" src="{{asset('storage/' . $avatarPath)}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{$post->title}}</h5>
+                    <p class="card-text">{{$post->text}}</p>
+                </div>
+                <div class="rating">
+                    <form action="{{route('user.like',$post->id)}}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn"><i class="fa fa-thumbs-up fa-lg btn-like {{UserReaction::existRaiting($user->id,$post->id,'like') ? 'green' : '' }}" data-post-id="{{$post->id}}" aria-hidden="true"></i></button>
+                    </form>
+                    <form action="{{route('user.dislike',$post->id)}}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn"><i class="fa fa-thumbs-down fa-lg btn-dislike {{UserReaction::existRaiting($user->id,$post->id,'dislike') ? 'red' : '' }}" data-post-id="{{$post->id}}" aria-hidden="true"></i></button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-@endforeach
+    @endforeach
+</div>
 
 
-
-
-<style>
-  .info {
-        display:inline-block;
-        margin-top: 150px;
-        margin-left: 400px;
-    }
-
-    .avatar {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        overflow: hidden;
-    }
-
-    .avatar img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .name {
-        margin-top: 10px;
-        text-align: center;
-    }
-
-    .card{
-        margin: 50px auto;
-        text-align: center;
-    }
-</style>
-
+<script src="{{asset('js/like-dislike.js')}}"></script>
+<script src="https://use.fontawesome.com/fe459689b4.js"></script>
 @endsection

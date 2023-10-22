@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->bigInteger('likes');
-            $table->bigInteger('dislikes');
-            $table->bigInteger('comment_amount');
+            $table->bigInteger('likes')->default(0);
+            $table->bigInteger('dislikes')->default(0);
+            $table->bigInteger('comment_amount')->default(0);
 
 
         });

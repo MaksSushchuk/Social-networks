@@ -7,7 +7,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
-
+use App\Http\Controllers\UserActionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +76,13 @@ Route::name('user.')->prefix('user/')->middleware(['auth'])->group(function(){
     });
 });
 
+Route::controller(UserActionController::class)->name('user.')->middleware('auth')->group(function(){
+
+    Route::post('user/like/{post_id}','like')->name('like');
+    Route::post('user/dislike/{post_id}','dislike')->name('dislike');
+    // Route::post('user/home','comment')->name('comment');
+
+});
 
 
 

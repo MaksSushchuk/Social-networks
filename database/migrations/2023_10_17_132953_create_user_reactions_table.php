@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('user_reactions', function (Blueprint $table) {
             $table->id();
-            $table->boolean('value');
-            $table->foreignId('post_id')->constrained('posts');
-            $table->foreignId('user_id')->constrained('users');
+            $table->string('type');
+            $table->foreignId('post_id')->constrained('posts')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }
