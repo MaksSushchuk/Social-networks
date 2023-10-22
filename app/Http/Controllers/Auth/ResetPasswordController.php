@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Auth\ResetPasswordRequest;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use App\Action\ForgotPasswordAction;
 
 class ResetPasswordController extends Controller
 {
@@ -15,21 +14,12 @@ class ResetPasswordController extends Controller
         return view('auth.reset-password',['request' => $request]);
     }
 
-    public function update(ResetPasswordRequest $request){
+    public function update(ResetPasswordRequest $request, ForgotPasswordAction $action){
 
         $request->validated();
 
-
-        $status = Password::reset(
-            $request->only('email','password','password_confirmation','token'),
-            function($user) use($request){
-                $user->forceFill([
-                    'password' => Hash::make($request->password),
-                    // 'remember_token' => Str::random(60),
-                ])->save();
-            }
-        );
-
+        $status =  $action->handle($request);
+       
         if($status === Password::PASSWORD_RESET){
 
             return redirect()->route('login.index')->with('status',trans($status));
