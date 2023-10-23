@@ -3,6 +3,7 @@
 namespace Tests\Feature\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -24,20 +25,22 @@ class RegisterControllerTest extends TestCase
     public function testUserRegister()
     {
         $user = User::factory()->make();
-
+        $avatar = UploadedFile::fake()->image('avatar.png', 100, 100);
         $response = $this->post('/register', [
-            'name' => $user->name,
+            'username' => $user->username,
             'email' => $user->email,
             'email_verification' => 1,
-            'avatar' => 'afgag', 
+            'avatar' => $avatar,
             'password' => 'password',
             'password_confirmation' => 'password',
         ]);
 
         $response->assertRedirect('/user/home');
         $this->assertDatabaseHas('users', [
-            'name' => $user->name,
+            'username' => $user->username,
             'email' => $user->email,
         ]);
     }
+
+
 }
