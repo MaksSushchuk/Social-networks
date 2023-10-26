@@ -1,36 +1,53 @@
 let btnLike = document.querySelectorAll('.btn-like');
 let btnDislike = document.querySelectorAll('.btn-dislike');
+let xhttp = new XMLHttpRequest();
+let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-btnLike.forEach(function(likeButton) {
-    likeButton.addEventListener('click', function() {
+btnLike.forEach((item,i) => {
+    item.addEventListener('click', function (e) {
+        e.preventDefault();
         const postId = this.getAttribute('data-post-id');
-        if (this.classList.contains('green')) {
-            this.classList.remove('green');
-        } else {
-            this.classList.add('green');
-        }
 
-        // Знайдіть відповідний дизлайк і видаліть клас "red"
-        const correspondingDislikeButton = document.querySelector('.btn-dislike[data-post-id="' + postId + '"]');
-        if (correspondingDislikeButton && correspondingDislikeButton.classList.contains('red')) {
-            correspondingDislikeButton.classList.remove('red');
-        }
+        xhttp.open("POST", "/user/like/" + postId, true);
+        xhttp.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+        xhttp.setRequestHeader('Content-Type', 'application/json');
+
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if (item.classList.contains('green')) {
+                    item.classList.remove('green');
+                } else {
+                    item.classList.add('green');
+                }
+            }
+        };
+
+        btnDislike[i].classList.remove('red');
+
+        xhttp.send();
     });
 });
 
-btnDislike.forEach(function(dislikeButton) {
-    dislikeButton.addEventListener('click', function() {
+btnDislike.forEach( (item, i) => {
+    item.addEventListener('click', function (e) {
+        e.preventDefault();
         const postId = this.getAttribute('data-post-id');
-        if (this.classList.contains('red')) {
-            this.classList.remove('red');
-        } else {
-            this.classList.add('red');
-        }
 
-        // Знайдіть відповідний лайк і видаліть клас "green"
-        const correspondingLikeButton = document.querySelector('.btn-like[data-post-id="' + postId + '"]');
-        if (correspondingLikeButton && correspondingLikeButton.classList.contains('green')) {
-            correspondingLikeButton.classList.remove('green');
-        }
+        xhttp.open("POST", "/user/dislike/" + postId, true);
+        xhttp.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+        xhttp.setRequestHeader('Content-Type', 'application/json');
+
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if (item.classList.contains('red')) {
+                    item.classList.remove('red');
+                } else {
+                    item.classList.add('red');
+                }
+            }
+        };
+
+        btnLike[i].classList.remove('green');
+        xhttp.send();
     });
 });
