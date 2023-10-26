@@ -80,7 +80,7 @@ Route::controller(UserActionController::class)->name('user.')->middleware('auth'
 
     Route::post('user/like/{post_id}','like')->name('like');
     Route::post('user/dislike/{post_id}','dislike')->name('dislike');
-    // Route::post('user/home','comment')->name('comment');
+    Route::post('user/comment/{post_id}','comment')->name('comment');
 
 });
 

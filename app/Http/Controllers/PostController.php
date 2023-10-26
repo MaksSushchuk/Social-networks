@@ -6,7 +6,7 @@ use App\Models\File;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Requests\PostRequest;
 class PostController extends Controller
 {
     /**
@@ -35,25 +35,25 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
 
-        $post = Post::create([
+        $path = $request->file('file')->store('post','public');
+
+        Post::create([
             'title' => $request->title,
             'text' => $request->text,
-            'file' => $request->file,
+            'file' => $path,
             'admission' => $request->admission,
             'user_id' => Auth::id(),
         ]);
 
-        if ($request->hasFile('file')) {
-            $path = $request->file('file')->store('post','public');
-            File::create([
-                'user_id' => Auth::id(),
-                'filename' => $request->file('file')->getClientOriginalName(),
-                'path' => $path,
-            ]);
-        }
+        File::create([
+            'user_id' => Auth::id(),
+            'filename' => $request->file('file')->getClientOriginalName(),
+            'path' => $path,
+        ]);
+        
 
         return redirect()->route('user.home');
     }

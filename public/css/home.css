@@ -49,6 +49,109 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.user-actions{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    margin-top: 20px;
+}
+
+.rating{
+    margin-left: 20px;
+    display: flex;
+    justify-content: flex-start;
+
+}
+
+.show-comments-button {
+    background-color: #008CBA;
+    color: #fff;
+    border: none;
+    margin-top: 10px;
+    cursor: pointer;
+    max-width: 120px;
+    font-size: 11px;
+}
+
+button{
+    cursor: pointer;
+    color: #AAA;
+  }
+
+  .btn:focus {
+    outline: none;
+  }
+
+  .green{
+    color: green !important;
+}
+
+  .red{
+    color: red !important;
+}
+
+.comments{
+    margin-top: 5px;
+    display: none;
+}
+
+.comments .comment-text{
+    margin: 5px 0;
+    border-bottom: 1px dotted #ccc;
+    text-align: left;
+}
+
+
+.user-comment {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    /* display: none; */
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+ .user-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-comment .username {
+    font-weight: bold;
+}
+
+.user-comment .comment-text textarea {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+.user-comment .btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.user-comment .btn:hover {
+    background-color: #0056b3;
+}
+
+
 /* Медіа-запит для адаптивності на менших екранах */
 @media (max-width: 768px) {
     .info {
@@ -83,25 +186,4 @@
 }
 
 
-    button{
-        cursor: pointer;
-        color: #AAA;
-      }
-
-      .btn:focus {
-        outline: none;
-      }
-
-      .green{
-        color: green !important;
-    }
-
-      .red{
-        color: red !important;
-    }
-
-    .rating{
-        display: flex;
-        margin-left: 20px;
-        justify-content: flex-start;\
-    }
+  

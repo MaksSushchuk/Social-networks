@@ -26,8 +26,8 @@ class PostRequest extends FormRequest
     {
 
         return [
-            'title' => ['required','unique:posts','max:255'],
-            'text' => ['required'],
+            'title' => ['required', 'string','max:255'],
+            'text' => ['required','string'],
             'file' => ['required','mimes:jpg,bmp,png,jpeg'],
 
         ];
