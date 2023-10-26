@@ -18,19 +18,42 @@ use App\Models\UserReaction;
     @foreach ($posts as $post)
         <div class="container">
             <div class="card" style="width: 32rem;">
-                <img class="card-img-top" src="{{asset('storage/' . $avatarPath)}}" alt="Card image cap">
+                <img class="card-img-top" src="{{asset('storage/' . $post->file)}}" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">{{$post->title}}</h5>
                     <p class="card-text">{{$post->text}}</p>
                 </div>
-                <div class="rating">
-                    <form action="{{route('user.like',$post->id)}}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn"><i class="fa fa-thumbs-up fa-lg btn-like {{UserReaction::existRaiting($user->id,$post->id,'like') ? 'green' : '' }}" data-post-id="{{$post->id}}" aria-hidden="true"></i></button>
-                    </form>
-                    <form action="{{route('user.dislike',$post->id)}}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn"><i class="fa fa-thumbs-down fa-lg btn-dislike {{UserReaction::existRaiting($user->id,$post->id,'dislike') ? 'red' : '' }}" data-post-id="{{$post->id}}" aria-hidden="true"></i></button>
+                <div class="user-actions">
+                    <div class="rating">
+                      
+                        <button type="submit" class="btn btn-like"  data-post-id="{{$post->id}}"><i class="fa fa-thumbs-up fa-lg btn-like {{UserReaction::existRaiting($user->id,$post->id,'like') ? 'green' : '' }}" " aria-hidden="true"></i></button>
+                        <button type="submit" class="btn btn-dislike"  data-post-id="{{$post->id}}"><i class="fa fa-thumbs-down fa-lg btn-dislike {{UserReaction::existRaiting($user->id,$post->id,'dislike') ? 'red' : '' }}" " aria-hidden="true"></i></button>
+                    </div>
+                    <div class="show-comments">
+                        <button class="show-comments-button" type="button">Показати коментарі</button>
+                    </div>
+                </div>
+                <div class="comments">
+                    @foreach ($post->comments as $comment)
+                        <div class="user-info">
+                            <img src="{{ asset('storage/' . $avatarPath) }}" alt="">
+                            <span class="username">{{ $user->username }}</span>
+                        </div>    
+                        <div class="comment-text">{{$comment->text}}</div>
+                    @endforeach
+                </div>
+
+                <div class="user-comment" data-post-id="{{$post->id}}">
+                    <div class="user-info">
+                        <img src="{{ asset('storage/' . $avatarPath) }}" alt="">
+                        <span class="username">{{ $user->username }}</span>
+                    </div>
+                    <form id="comment-form" action="{{ route('user.comment', $post->id) }}" method="POST">
+                        @csrf                        
+                        <div class="comment-text">
+                            <textarea name="text" id="comment-text" placeholder="Ваш коментар" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="add-comment-btn">Додати коментар</button>
                     </form>
                 </div>
             </div>
@@ -40,5 +63,8 @@ use App\Models\UserReaction;
 
 
 <script src="{{asset('js/like-dislike.js')}}"></script>
+<script src="{{asset('js/show-comment.js')}}"></script>
+<script src="{{asset('js/add-comment.js')}}"></script>
+
 <script src="https://use.fontawesome.com/fe459689b4.js"></script>
 @endsection
