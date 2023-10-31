@@ -23,14 +23,13 @@ class RegisterAction{
             'role_id' => 1,
         ]);
 
-        if ($request->hasFile('avatar')) {
-            $path = $request->file('avatar')->store('avatar','public');
-            File::create([
-                'user_id' => $user->id,
-                'filename' => $request->file('avatar')->getClientOriginalName(),
-                'path' => $path,
-            ]);
-        }
+        $path = $request->file('avatar')->store('avatar','public');
+         File::create([
+            'user_id' => $user->id,
+            'filename' => $request->file('avatar')->getClientOriginalName(),
+            'path' => $path,
+        ]);
+        
 
         Auth::login($user);
     }
