@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Action;
+namespace App\Actions;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Action\UserRatingAction;
+use App\Actions\UserRatingAction;
 use App\Models\Comment;
 use App\Models\UserReaction;
 use Illuminate\Http\Request;

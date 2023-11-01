@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Action;
+namespace App\Actions;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +16,7 @@ class RegisterAction{
         
         
         $user = User::create([
-            'username' => $request->username,
+            'username' => strtolower($request->username),
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'avatar' => $request->file('avatar')->getClientOriginalName(),
