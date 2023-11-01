@@ -48,6 +48,14 @@
     border: 1px solid #ddd;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+.card .img {
+    max-height: 350px;
+}
+
+.card .img img{
+    height: 100%;
+}
+
 
 .user-actions{
     display: flex;
