@@ -7,11 +7,12 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\File;
 use Illuminate\Support\Facades\Hash;
-use App\Jobs\DefaultAvatarImportJob;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterAction{
 
-    public function handle($request){
+    public function handle(Request $request){
 
         $user = User::create([
             'username' => $request->username,
@@ -20,7 +21,9 @@ class RegisterAction{
             'avatar' => '',
             'role_id' => 1,
         ]);
+
         event(new UserCreated($user));
+        event(new Registered($user));
 
         Auth::login($user);
     }

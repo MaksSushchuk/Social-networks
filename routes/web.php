@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\EmailVerifyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserActionController;
+use App\Http\Controllers\UserSearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +40,8 @@ Route::controller(RegisterController::class)->name('register.')->middleware(['gu
     Route::post('register','store')->name('store');
 });
 
+Route::get('email/verify/{id}/{hash}', EmailVerifyController::class)->name('verification.verify');
+
 
 Route::controller(ForgotPasswordController::class)->name('forgot-password.')->middleware(['guest'])->group(function(){
 
@@ -65,6 +69,8 @@ Route::name('user.')->prefix('user/')->middleware(['auth'])->group(function(){
 
     Route::controller(UserController::class)->group(function(){
         Route::get('home','home')->name('home');
+        Route::get('notification','notification')->name('notification');
+
     });
 
     Route::controller(PostController::class)->group(function(){
@@ -81,9 +87,13 @@ Route::controller(UserActionController::class)->name('user.')->middleware('auth'
     Route::post('user/like/{post_id}','like')->name('like');
     Route::post('user/dislike/{post_id}','dislike')->name('dislike');
     Route::post('user/comment/{post_id}','comment')->name('comment');
+    Route::post('user/friend_request/{user_id}', 'friendRequest')->name('friend');
 
 });
 
+Route::controller(UserSearchController::class)->name('user.search.')->middleware('auth')->group(function(){
+    Route::get('user/search','index')->name('index');
+});
 
 
 // Route::fallback('404', function(){

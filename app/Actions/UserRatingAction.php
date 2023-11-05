@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserRatingAction {
 
-    public function handle($reaction, $post_id){
+    public function handle(string $reaction,int $post_id){
         $user_id = Auth::id();
 
        // like/dislike user
