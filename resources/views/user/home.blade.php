@@ -33,7 +33,7 @@ use App\Models\UserReaction;
                         <button class="show-comments-button" type="button">Показати коментарі</button>
                     </div>
                 </div>
-                <div class="comments">
+                <div class="comments" wire:key="comments-list" wire:poll.1000ms>
                     @foreach ($post->comments as $comment)
                         <div class="user-info">
                             <img src="{{ asset('storage/' . $avatarPath) }}" alt="">
@@ -41,26 +41,24 @@ use App\Models\UserReaction;
                         </div>    
                         <div class="comment-text">{{$comment->text}}</div>
                     @endforeach
-                </div>
-
-                <div class="user-comment" data-post-id="{{$post->id}}">
+                </div>                <div class="user-comment" data-post-id="{{$post->id}}">
                     <div class="user-info">
                         <img src="{{ asset('storage/' . $avatarPath) }}" alt="">
                         <span class="username">{{ $user->username }}</span>
                     </div>
-                    <form id="comment-form" action="{{ route('user.comment', $post->id) }}" method="POST">
-                        @csrf                        
-                        <div class="comment-text">
-                            <textarea name="text" id="comment-text" placeholder="Ваш коментар" rows="3" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" id="add-comment-btn">Додати коментар</button>
-                    </form>
+                    @livewire('user-comment', ['post_id' => $post->id])
                 </div>
             </div>
         </div>
     @endforeach
 </div>
 
+<script>
+    Livewire.on('commentAdded', function () {
+        // Викликаємо метод оновлення коментарів
+        Livewire.emit('updateComments');
+    });
+</script>
 
 <script src="{{asset('js/like-dislike.js')}}"></script>
 <script src="{{asset('js/show-comment.js')}}"></script>

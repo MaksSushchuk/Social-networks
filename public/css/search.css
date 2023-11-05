@@ -86,7 +86,7 @@ button#apply-filters:hover {
     width: 250px;
 }
 
-.user-avatar {
+.user-avatar img{
     width: 100px;
     height: 100px;
     border-radius: 50%;

@@ -15,7 +15,7 @@ class UserReaction extends Model
     const DISLIKE = 'dislike';
 
     
-    public static function existRaiting($user_id,$post_id,$type){
+    public static function existRaiting(int $user_id,int $post_id, string $type) : bool {
 
         return self::where(['user_id' => $user_id, 'post_id' => $post_id, 'type' => $type ])->exists() ? true : false;
     }
