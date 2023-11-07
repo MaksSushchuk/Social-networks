@@ -15,7 +15,7 @@
             <input type="password" name="password" placeholder="Password" />
 
 
-            <input type="submit" name="signup_submit" value="Sign me up" />
+            <input type="submit" name="signup_submit" value="Log in" />
 
             <input id="highload0"  name="remember" type="checkbox" value="Forgot me">
             <label for="remember">Forgot me</label></br>
@@ -25,6 +25,9 @@
     </form>
 
     <p><span class="btn-round">or</span></p>
+
+    <p>Don't have an account yet?</p>
+    <button class="btn"><a href="{{route('register.create')}}">Register</a></button>
 
     <p>
         <a class="facebook-before"><span class="fontawesome-facebook"></span></a>

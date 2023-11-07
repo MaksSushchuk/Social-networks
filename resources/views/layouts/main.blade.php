@@ -9,17 +9,28 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="logout">
-        <a href="{{route('login.logout')}}"><button class="btn btn-primary mt-2 float-right">Logout</button></a>
+    <div class="panel">
+        <div class="left">
+            <a href="{{route('user.home')}}"><button class="btn btn-primary mt-2 float-right">Home</button></a>
+        </div>
+        <div class="right">
+            <a href="{{route('user.search.index')}}"><button class="btn btn-primary mt-2 float-right">Search</button></a>
+            <a href="{{route('login.logout')}}"><button class="btn btn-primary mt-2 float-right">Logout</button></a>
+        </div>
+    
     </div>
+    
 
 @yield('content')
 
 <style>
-    .logout{
+    .panel{
         display: flex;
-        justify-content: flex-end;
-        margin-right: 90px;
+        justify-content: space-between;
+        margin: 10px 90px;
+    }
+    .logout .btn{
+        margin-right: 20px;
     }
 </style>
 </body>

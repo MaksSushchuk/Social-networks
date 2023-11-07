@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Actions\UserRatingAction;
 use App\Models\Comment;
+use App\Models\Friend;
+use App\Models\FriendRequest;
 use App\Models\UserReaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Post;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class UserActionController extends Controller
 {
@@ -39,7 +40,34 @@ class UserActionController extends Controller
             'text' => $request->text,
         ]);
 
-        return response()->json(['message' => 'Dislike successfully added']);
+        return response()->json(['message' => 'Comment added successfully']);
+    }
+
+
+    public function friendRequest(int $user_id_accepts){
+
+        FriendRequest::firstOrcreate([
+            'user_id_send' => Auth::id(),
+            'user_id_accepts' => $user_id_accepts,
+        ]);
+        
+        return back();
+
+    } 
+
+    public function friendAccept(int $user_id_send){
+
+            Friend::firstOrcreate([
+                'user_id_send' => $user_id_send,
+                'user_id_accepts' => Auth::id(),
+            ]);
+
+            FriendRequest::where([
+                'user_id_send' => $user_id_send,
+                'user_id_accepts' => Auth::id(),
+            ])->delete();
+    
+        return back();
     }
 
 }

@@ -17,11 +17,6 @@
             @error('email')
                 <span class="text-danger small">{{ $message }}</span>
             @enderror
-            <p>Avatar</p>
-            <input type="file" name="avatar" />
-            @error('avatar')
-                <span class="text-danger small">{{ $message }}</span>
-            @enderror
             <input type="password" name="password"  placeholder="Password" />
             @error('password')
                 <span class="text-danger small">{{ $message }}</span>
@@ -42,8 +37,7 @@
     <p>
 
       <a class="facebook-before"><span class="fontawesome-facebook"></span></a>
-      <button class="facebook">Login Using Facbook</button>
-
+      <a href="{{route('auth.google')}}"><button class="facebook">Login Using Facbook</button></a>
     </p>
 
     <p>

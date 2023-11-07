@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\Api\GoogleController;
 use App\Http\Controllers\Auth\EmailVerifyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
@@ -33,7 +34,9 @@ use App\Http\Controllers\UserSearchController;
 
 // Route::controller()
 
-
+Route::get('',function(){
+    return redirect()->route('login.index');
+});
 Route::controller(RegisterController::class)->name('register.')->middleware(['guest'])->group(function(){
 
     Route::get('register','create')->name('create');
@@ -63,6 +66,10 @@ Route::controller(LoginController::class)->name('login.')->group(function(){
     Route::get('logout', 'logout')->middleware('auth')->name('logout');
 });
 
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+
+
 
 
 Route::name('user.')->prefix('user/')->middleware(['auth'])->group(function(){
@@ -87,7 +94,8 @@ Route::controller(UserActionController::class)->name('user.')->middleware('auth'
     Route::post('user/like/{post_id}','like')->name('like');
     Route::post('user/dislike/{post_id}','dislike')->name('dislike');
     Route::post('user/comment/{post_id}','comment')->name('comment');
-    Route::post('user/friend_request/{user_id}', 'friendRequest')->name('friend');
+    Route::post('user/friend_request/{user_id}', 'friendRequest')->name('friend.send');
+    Route::post('user/friend_accept/{user_id}', 'friendAccept')->name('friend.accept');
 
 });
 

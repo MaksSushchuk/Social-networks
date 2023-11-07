@@ -51,7 +51,7 @@
                 <div class="user-info">
                 <h6>{{$user->username}}</h6>
                 <p>{{$user->email}}</p>
-                <form action="{{route('user.friend',$user->id)}}" method="POST">
+                <form action="{{route('user.friend.send',$user->id)}}" method="POST">
                     @csrf
                     <input type="submit" value="Дружити">
                 </form>
