@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('auth_api', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('file');
-            $table->text('text');
-            $table->string('admission');
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->string('google_id',48)->nullable();
+            $table->string('facebook_id',48)->nullable();
+            $table->string('twitter_id',48)->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('auth_api');
     }
 };

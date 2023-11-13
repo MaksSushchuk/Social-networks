@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Filters\UserFilter;
 use App\Http\Requests\PeopleFilterRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
 class UserSearchController extends Controller

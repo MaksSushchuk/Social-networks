@@ -43,9 +43,10 @@ class PostController extends Controller
         Post::create([
             'title' => $request->title,
             'text' => $request->text,
-            'file' => $path,
-            'admission' => $request->admission,
+            'image' => $path,
+            'status' => Post::PUBLISHED,
             'user_id' => Auth::id(),
+
         ]);
 
         File::create([

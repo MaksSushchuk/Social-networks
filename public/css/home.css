@@ -160,11 +160,10 @@ button{
 }
 
 
-/* Медіа-запит для адаптивності на менших екранах */
 @media (max-width: 768px) {
     .info {
         text-align: center;
-        margin-bottom: 20px; /* Додали відступ вниз для розділення блоків */
+        margin-bottom: 20px; 
     }
 
     .avatar {

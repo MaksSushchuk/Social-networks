@@ -7,10 +7,12 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserActionController;
 use App\Http\Controllers\UserSearchController;
+use TCG\Voyager\Facades\Voyager;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +71,10 @@ Route::controller(LoginController::class)->name('login.')->group(function(){
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 
+// admin panel
+Route::group(['prefix' => 'admin', 'middleware' => 'admin' ], function () {
+    Voyager::routes();
+});
 
 
 
@@ -103,7 +109,11 @@ Route::controller(UserSearchController::class)->name('user.search.')->middleware
     Route::get('user/search','index')->name('index');
 });
 
+Route::controller(ChatController::class)->name('user.')->middleware('auth')->group(function(){
+    Route::get('user/chat/{user_accept}','chat')->name('chat');
+    Route::post('user/chat/message/{user_accept}','message')->name('chat.message');
 
+});
 // Route::fallback('404', function(){
 //     return view('error404');
 // });

@@ -53,12 +53,6 @@ use App\Models\UserReaction;
     @endforeach
 </div>
 
-<script>
-    Livewire.on('commentAdded', function () {
-        // Викликаємо метод оновлення коментарів
-        Livewire.emit('updateComments');
-    });
-</script>
 
 <script src="{{asset('js/like-dislike.js')}}"></script>
 <script src="{{asset('js/show-comment.js')}}"></script>
