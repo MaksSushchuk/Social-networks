@@ -15,6 +15,7 @@ class Friend extends Model
         'id' => 'int',
         'user_id_send' => 'int',
         'user_id_accepts' => 'int',
-
     ];
+
+    
 }

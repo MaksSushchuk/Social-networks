@@ -18,14 +18,14 @@ use App\Models\UserReaction;
     @foreach ($posts as $post)
         <div class="container">
             <div class="card" style="width: 32rem;">
-                <img class="card-img-top" src="{{asset('storage/' . $post->file)}}" alt="Card image cap">
+                <img class="card-img-top" src="{{asset('storage/' . $post->image)}}" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">{{$post->title}}</h5>
                     <p class="card-text">{{$post->text}}</p>
                 </div>
                 <div class="user-actions">
                     <div class="rating">
-                      
+
                         <button type="submit" class="btn btn-like"  data-post-id="{{$post->id}}"><i class="fa fa-thumbs-up fa-lg btn-like {{UserReaction::existRaiting($user->id,$post->id,'like') ? 'green' : '' }}" " aria-hidden="true"></i></button>
                         <button type="submit" class="btn btn-dislike"  data-post-id="{{$post->id}}"><i class="fa fa-thumbs-down fa-lg btn-dislike {{UserReaction::existRaiting($user->id,$post->id,'dislike') ? 'red' : '' }}" " aria-hidden="true"></i></button>
                     </div>

@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Models\Post;
 use App\Models\Traits\Filterable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use TCG\Voyager\Traits\VoyagerUser;
 use TCG\Voyager\Contracts\User as VoyagerUserInterface;
 
@@ -16,7 +17,18 @@ class User extends \TCG\Voyager\Models\User implements MustVerifyEmail, VoyagerU
     use HasFactory, Notifiable,Filterable, VoyagerUser;
 
 
-    protected $fillable = ['username','email','avatar','password','age','sex','country','birthplace','location','role_id'];
+    protected $fillable = [
+        'username',
+        'email',
+        'avatar',
+        'password',
+        'age',
+        'sex',
+        'country',
+        'birthplace',
+        'location',
+        'role_id'
+    ];
 
     protected $casts = [
         'username' => 'string',
@@ -31,13 +43,21 @@ class User extends \TCG\Voyager\Models\User implements MustVerifyEmail, VoyagerU
 
     ];
 
-    public function posts(){
+    protected $hidden = [
+        'password',
+    ];
+
+    public function posts(): HasMany{
         return $this->hasMany(Post::class);
     }
 
-    public function isAdmin(){
+
+    public function isAdmin(): bool {
         return $this->role_id === 1;
     }
 
+    public function friends(): HasMany {
+        return $this->hasMany(Friend::class);
+    }
 
 }
