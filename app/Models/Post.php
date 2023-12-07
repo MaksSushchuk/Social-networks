@@ -9,7 +9,7 @@ use App\Models\Comment;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Post extends VoyagerPost
+class Post extends Model
 {
     use HasFactory;
 
